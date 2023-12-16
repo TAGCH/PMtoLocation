@@ -303,3 +303,12 @@ header {
 .btn-compare:hover {
     transform: scale(1.1);
 }
+
+.chart-container {
+    display: flex;
+}
+
+.chart {
+    width: 50%;
+    height: 50vh;
+}

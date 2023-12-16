@@ -3,7 +3,7 @@ from flask import abort
 import pymysql
 from dbutils.pooled_db import PooledDB
 from config import OPENAPI_STUB_DIR, DB_HOST, DB_USER, DB_PASSWD, DB_NAME
-from datetime import datetime
+from datetime import datetime, timedelta
 
 sys.path.append(OPENAPI_STUB_DIR)
 from swagger_server import models
@@ -21,13 +21,33 @@ def get_API():
         cs.execute("""
             SELECT id, ts, lat, lon, wind, pm25, hum
             FROM IQAir
-            WHERE id BEWTWEEN 291 AND 294
         """)
         result = [models.API(*row) for row in cs.fetchall()]
 
         # Modify the "ts" format
         for item in result:
             item.ts = item.ts.strftime('%Y-%m-%dT%H:%M')
+
+            # Convert wind to float without the unit
+            item.wind = float(item.wind.split()[0])
+
+            # Convert hum to float without the unit
+            item.hum = float(item.hum.split('%')[0])
+
+        return result
+
+def get_PM_API():
+    with pool.connection() as conn, conn.cursor() as cs:
+        cs.execute("""
+            SELECT id, ts, lat, lon, wind, pm25, hum
+            FROM IQAir
+            WHERE id BETWEEN 290 AND 294
+        """)
+        result = [models.API(*row) for row in cs.fetchall()]
+
+        # Modify the "ts" format
+        for item in result:
+            item.ts = (item.ts - timedelta(hours=7)).strftime('%Y-%m-%dT%H:%M')
 
             # Convert wind to float without the unit
             item.wind = float(item.wind.split()[0])
@@ -72,11 +92,12 @@ def get_LocalPM():
 def get_PMtoLocation():
     with pool.connection() as conn, conn.cursor() as cs:
         cs.execute("""
-            SELECT DISTINCT Location.id, Location.ts, Location.lat, Location.lon, PMlocal.pm25
+            SELECT Location.id, MAX(Location.ts) AS ts, Location.lat, Location.lon, PMlocal.pm25 AS pm25
             FROM Location
-            JOIN PMlocal ON DATE_FORMAT(Location.ts, '%Y-%m-%dT%H:%M') = DATE_FORMAT(PMlocal.ts, '%Y-%m-%dT%H:%M')
+            JOIN PMlocal ON DATE_FORMAT(Location.ts, '%Y-%m-%dT%H:%i') = DATE_FORMAT(PMlocal.ts, '%Y-%m-%dT%H:%i')
             WHERE Location.id BETWEEN 22 AND 34
-            ORDER BY ts
+            GROUP BY Location.id, DATE_FORMAT(Location.ts, '%Y-%m-%dT%H:%i'), Location.lat, Location.lon, PMlocal.pm25
+            ORDER BY MAX(Location.ts)
         """)
         result = [models.PMtoLocation(*row) for row in cs.fetchall()]
 

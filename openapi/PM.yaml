@@ -60,6 +60,19 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/PMtoLocation'
+  /PMAPI:
+    get:
+      summary: Returns a list of PM.
+      operationId: controller.get_PM_API
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PMAPI'
 
 components:
   schemas:
@@ -113,3 +126,20 @@ components:
           type: number
         pm25:
           type: integer
+    PMAPI:
+      type: object
+      properties:
+        id:
+          type: integer
+        ts:
+          type: string
+        lat:
+          type: number
+        lon:
+          type: number
+        wind:
+          type: string
+        pm25:
+          type: integer
+        hum:
+          type: string

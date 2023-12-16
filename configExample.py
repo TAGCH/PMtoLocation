@@ -1,0 +1,5 @@
+OPENAPI_STUB_DIR = 'stub'
+DB_HOST = 'iot.cpe.ku.ac.th'
+DB_USER = 'Database User'
+DB_PASSWD = 'Database Password'
+DB_NAME = 'Database Name'

@@ -26,5 +26,6 @@ All project documents are in the [Project Wiki](../../wiki/Home).
 - [Data](https://github.com/TAGCH/PMtoLocation/wiki/Data)
 - [API provide to users](https://github.com/TAGCH/PMtoLocation/wiki/API-provide-to-users)
 - [Sensor](https://github.com/TAGCH/PMtoLocation/wiki/Sensor)
-- [Database Schema](https://github.com/TAGCH/PMtoLocation/wiki/Database)
+- [Database Schema](https://github.com/TAGCH/PMtoLocation/wiki/Database-Schema)
+- [Overall Architecture](https://github.com/TAGCH/PMtoLocation/wiki/Overall-Architecture)
 - [Presentation Slide](https://www.canva.com/design/DAF1dQLmS1E/p0dwFgQiAXkuH67rWw9H7Q/edit?utm_content=DAF1dQLmS1E&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)

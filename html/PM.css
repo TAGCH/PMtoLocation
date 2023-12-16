@@ -1,0 +1,305 @@
+/*For menu bar*/
+header {
+    position: fixed;
+    width: 100%;
+    padding: 15px 80px;
+    background-color: #393939;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0 30px rgb(0, 0, 0, 0.5);
+    z-index: 99;
+}
+
+.logo {
+    font-size: 2em;
+    color: rgb(255, 255, 255);
+    user-select: none;
+    font-weight: 700;
+    text-shadow: 2px 2px 8px #00000057;
+}
+
+.navigation {
+    display: flex; /* Added flex display */
+    align-items: center; /* Center items vertically */
+    margin-right: auto;
+}
+
+.navigation a {
+    font-size:  1.0em;
+    color: aliceblue;
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 20px; /* Adjusted margin */
+    position: relative; /* Removed duplicate position property */
+    display: inline-flex;
+}
+
+.navigation .btnLogin-popup {
+    width:  110px;
+    height: 40px;
+    background: transparent;
+    border: 1px solid #fff;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    color: #fff;
+    font-weight: 1000;
+    margin-left: 40px;
+    transition: .5s;
+}
+
+.navigation .btnLogin-popup:hover {
+    background: rgba(255, 255, 255, 0.5);
+    color: blueviolet;
+}
+
+.navigation a::after {
+    content: ' ';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    background: #fff;
+    border-radius: 5px;
+    transform: scaleX(0);
+    transition: transform .5s;
+}
+
+.navigation a:hover::after {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+.navigation-left {
+    display: flex; /* Added flex display */
+    align-items: center; /* Center items vertically */
+    margin-left: auto;
+}
+
+.navigation-left a {
+    font-size:  1.0em;
+    color: aliceblue;
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 20px; /* Adjusted margin */
+    position: relative; /* Removed duplicate position property */
+    display: inline-flex;
+}
+
+.navigation-left .btnLogin-popup {
+    width: 100px;
+    height: 38px;
+    background: transparent;
+    border: 1px solid #fff;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    color: #fff;
+    font-weight: 1000;
+    margin-left: 40px;
+    transition: .5s;
+}
+
+.navigation-left .btnLogin-popup:hover {
+    background: rgba(255, 255, 255, 0.5);
+    color: blueviolet;
+}
+
+.navigation-left a::after {
+    content: ' ';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    background: #fff;
+    border-radius: 5px;
+    transform: scaleX(0);
+    transition: transform .5s;
+}
+
+.navigation-left a:hover::after {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+.item {
+    width: 40px;
+    height: auto;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+.item:hover {
+    transform: scale(1.1);
+}
+/*For menu bar*/
+
+.image-container {
+    height: 400px; /* Set the height of the container, adjust as needed */
+    overflow: hidden; /* Hide the overflow content (cut the image) */
+    z-index: -1;
+}
+
+.object-fit-cover-picture__img {
+    object-fit: cover; /* This will maintain aspect ratio */
+    object-position: center top; /* This will show the top 50% */
+    width: 100%;
+    height: 100%; /* Ensure the image fills the container */
+    z-index: -1;
+}
+
+.logo-container {
+    height: 80px;
+    width: 100%;
+    padding: 40px 80px;
+    background-color: #3C0041;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 30px rgb(0, 0, 0, 0.5);
+    color: #ffffff;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 2rem;
+    font-weight: 100;
+    top: 60%;
+}
+
+.title {
+    height: 80px;
+    width: 100%;
+    padding: 15px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3C0041;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 100px;
+    font-weight: 200;
+    
+}
+
+.Static-title {
+    height: 80px;
+    width: 100%;
+    padding: 10px 140px;
+    display: flex;
+    align-items: center;
+    color: #3C0041;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 50px;
+    font-weight: 200;
+}
+
+.score-board-title {
+    height: 80px;
+    width: 100%;
+    padding: 20px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #393939;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 80px;
+    font-weight: 200;
+}
+
+.player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.player table {
+    width: 1000px; /* Adjust the width as needed */
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.player td, .player th {
+    width: 100px;
+    padding: 10px 0px;
+    text-align: center;
+}
+
+.player th {
+    background-color: #f2f2f277;
+    border-radius: 20px;
+}
+
+/* Added styles for left and right columns */
+.player .center {
+    text-align: center;
+}
+
+.outer-box2 {
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    padding: 30px 20px; /* Adjusted padding */
+}
+
+.score-board {
+    text-align: center;
+    font-size: 20px;
+    background-color: rgba(255, 255, 255, 0.989);
+    padding: 20px;
+    width: 80vw;
+    border-radius: 20px;
+    box-shadow: 6px 4px 68px 11px rgba(0, 0, 0, 0.25);
+}
+
+.radar-graph {
+    width: 50%;
+}
+
+.DropBoxText {
+    color: #000;
+    font-family: Paris2024-Variable;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 350;
+    line-height: normal;
+}
+
+.custom-select-team {
+    /* Add custom styles for the select box */
+    width: 250px;
+    padding: 10px;
+    border: 1px solid #ffffff;
+    border-radius: 20px;
+    background-color: #ffffff;
+    color: #333;
+    filter: drop-shadow(8px 8px 10px rgba(0, 0, 0, 0.25));
+}
+
+.btn-compare {
+    width: 150px;
+    height: 40px;
+    flex-shrink: 0;
+    border: 0.01px solid rgb(139, 137, 137, 0.0);
+    border-radius: 80px;
+    opacity: 0.5;
+    background: conic-gradient(from 183deg at 37.27% 271.67%, #8A20DC 0deg, rgba(135, 34, 214, 1.00) 162.74986624717712deg, rgba(136, 34, 216, 1.00) 323.99986267089844deg, rgba(177, 37, 179, 0.36) 331.49985551834106deg);
+    box-shadow: 8px 8px 10px 0px rgba(0, 0, 0, 0.25);    
+    color: #FFF;
+    text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+    font-family: Baloo Thambi 2;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 650;
+    line-height: normal;
+    stroke: none;
+    cursor: pointer;
+    transition: all 0.4s;
+}
+
+.btn-compare:hover {
+    transform: scale(1.1);
+}

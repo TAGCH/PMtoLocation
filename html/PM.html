@@ -1,0 +1,382 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="PM.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>PM Visualization</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 500px;
+            z-index: 0;
+        }
+    </style>
+</head>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<body>
+    <header>
+        <div class="item">
+            <a href="index.html" rel="noopener">
+              <img class="rounded-circle" src="Logo.png" alt="Logo" width="50" height="50">
+            </a>
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <nav class="navigation">
+            <a href="PM.html">PM Visualization</a>
+        </nav>
+    </header>
+    <br><br><br><br><br>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <span class="score-board-title">PM Visualization</span>
+  <br><br>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <script>
+      // Initialize the map
+      var mymap = L.map('map').setView([11, 11], 5);
+
+      // Add a tile layer (you can choose a different provider if needed)
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap contributors'
+      }).addTo(mymap);
+
+      var coordinates = [
+      {"id":"22","ts":"2023-11-27 06:46:13","lat":13.8458,"lon":100.569,"pm25":30},
+      {"id":"23","ts":"2023-11-27 06:47:13","lat":13.8452,"lon":100.569,"pm25":30},
+      {"id":"24","ts":"2023-11-27 06:48:13","lat":13.8447,"lon":100.569,"pm25":30},
+      {"id":"25","ts":"2023-11-27 06:49:13","lat":13.8447,"lon":100.568,"pm25":31},
+      {"id":"26","ts":"2023-11-27 06:50:13","lat":13.8451,"lon":100.567,"pm25":32},
+      {"id":"27","ts":"2023-11-27 06:51:13","lat":13.8456,"lon":100.567,"pm25":34},
+      {"id":"28","ts":"2023-11-27 06:52:13","lat":13.8461,"lon":100.568,"pm25":34},
+      {"id":"29","ts":"2023-11-27 06:53:13","lat":13.8467,"lon":100.568,"pm25":33},
+      {"id":"30","ts":"2023-11-27 06:54:13","lat":13.8469,"lon":100.569,"pm25":34},
+      {"id":"31","ts":"2023-11-27 06:55:13","lat":13.8467,"lon":100.569,"pm25":34},
+      {"id":"32","ts":"2023-11-27 06:56:13","lat":13.8466,"lon":100.57,"pm25":34},
+      {"id":"33","ts":"2023-11-27 06:57:13","lat":13.8464,"lon":100.57,"pm25":34},
+      {"id":"34","ts":"2023-11-27 06:58:13","lat":13.8458,"lon":100.57,"pm25":35}
+      ];
+
+      // Use the first set of coordinates to center the map
+      var initialCoordinate = coordinates[0];
+      mymap.setView([initialCoordinate.lat, initialCoordinate.lon], 20);
+
+      // Add markers for each coordinate with a tooltip
+      for (var i = 0; i < coordinates.length; i++) {
+          var marker = L.marker([coordinates[i].lat, coordinates[i].lon])
+              .addTo(mymap)
+              .bindTooltip('PM2.5: ' + coordinates[i].pm25)
+              .openTooltip();
+      }
+  </script>
+    <div id="chart" style="width:100%;height:75vh;"></div>
+    <div id="chart2" style="width:100%;height:75vh;"></div>
+    <div id="chart3" style="width:100%;height:75vh;"></div>
+    <div id="chart4" style="width:100%;height:75vh;"></div>
+    <div id="chart5" style="width:100%;height:75vh;"></div>
+    <div id="chart6" style="width:100%;height:75vh;"></div>
+    <script>
+      async function createChart() {
+        var resp = await fetch('http://localhost:3000/graphql', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify({
+            query: `
+              {
+                PM1: pMlocal {
+                  id
+                  ts
+                  pm25
+                }
+              }`
+          })
+        });
+    
+        var json = await resp.json();
+        var data = [];
+    
+        // Add line for PM
+        var Test = {
+          x: json.data.PM1.map(row => row.ts),
+          y: json.data.PM1.map(row => row.pm25),
+          type: 'line',
+          name: "PM",
+        };
+        data.push(Test);
+    
+        var layout = {
+          title: 'PM2.5 by timestamp',
+          xaxis: {
+            title: 'Timestamp'
+          },
+          yaxis: {
+            title: 'PM2.5',
+            range: [0, 100]
+          }
+        };
+        var config = { responsive: true };
+        Plotly.newPlot("chart", data, layout, config);
+      }
+    
+      createChart();
+    </script>
+    <script>
+      async function createChart() {
+        var resp = await fetch('http://localhost:3000/graphql', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify({
+            query: `
+              {
+                PM2: aPI {
+                  id
+                  ts
+                  pm25
+                }
+              }`
+          })
+        });
+    
+        var json = await resp.json();
+        var data = [];
+    
+        // Add line for API_PM
+        var Test = {
+          x: json.data.PM2.map(row => row.ts),
+          y: json.data.PM2.map(row => row.pm25),
+          type: 'line',
+          name: "PM2.5 API by timestamp",
+        };
+        data.push(Test);
+    
+        var layout = {
+          title: 'PM2.5 API by timestamp',
+          xaxis: {
+            title: 'Timestamp'
+          },
+          yaxis: {
+            title: 'PM2.5',
+            range: [0, 200]
+          }
+        };
+        var config = { responsive: true };
+        Plotly.newPlot("chart2", data, layout, config);
+      }
+    
+      createChart();
+    </script>
+    <script>
+      async function createChart() {
+        var resp = await fetch('http://localhost:3000/graphql', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify({
+            query: `
+              {
+                Wind: aPI {
+                  id
+                  ts
+                  wind
+                }
+              }`
+          })
+        });
+    
+        var json = await resp.json();
+        var data = [];
+    
+        // Add line for Wind
+        var Test = {
+          x: json.data.Wind.map(row => row.ts),
+          y: json.data.Wind.map(row => row.wind),
+          type: 'line',
+          name: "Wind",
+        };
+        data.push(Test);
+    
+        var layout = {
+          title: 'Wind API by timestamp',
+          xaxis: {
+            title: 'Timestamp'
+          },
+          yaxis: {
+            title: 'Wind(km/h)',
+            range: [0, 50]
+          }
+        };
+        var config = { responsive: true };
+        Plotly.newPlot("chart3", data, layout, config);
+      }
+    
+      createChart();
+    </script>
+    <script>
+      async function createChart() {
+        var resp = await fetch('http://localhost:3000/graphql', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify({
+            query: `
+              {
+                Humidity: aPI {
+                  id
+                  ts
+                  hum
+                }
+              }`
+          })
+        });
+    
+        var json = await resp.json();
+        var data = [];
+    
+        // Add line for Humidity
+        var Test = {
+          x: json.data.Humidity.map(row => row.ts),
+          y: json.data.Humidity.map(row => row.hum),
+          type: 'line',
+          name: "Humidity",
+        };
+        data.push(Test);
+    
+        var layout = {
+          title: 'Humidity API by timestamp',
+          xaxis: {
+            title: 'Timestamp'
+          },
+          yaxis: {
+            title: 'Humidity(%)',
+            range: [0, 100]
+          }
+        };
+        var config = { responsive: true };
+        Plotly.newPlot("chart4", data, layout, config);
+      }
+    
+      createChart();
+    </script>
+    <script>
+      async function createChart() {
+        var resp = await fetch('http://localhost:3000/graphql', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify({
+            query: `
+              {
+                PM1: pMlocal {
+                  id
+                  ts
+                  pm25
+                }
+              }`
+          })
+        });
+    
+        var json = await resp.json();
+        var data = [];
+    
+        // Add line for PM
+        var Test = {
+          x: json.data.PM1.map(row => row.ts),
+          y: json.data.PM1.map(row => row.pm25),
+          type: 'line',
+          name: "PM",
+        };
+        data.push(Test);
+    
+        var layout = {
+          title: 'PM2.5 by timestamp',
+          xaxis: {
+            title: 'Timestamp'
+          },
+          yaxis: {
+            title: 'PM2.5',
+            range: [0, 100]
+          }
+        };
+        var config = { responsive: true };
+        Plotly.newPlot("chart5", data, layout, config);
+      }
+    
+      createChart();
+    </script>
+    <script>
+      async function createChart() {
+        var resp = await fetch('http://localhost:3000/graphql', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify({
+            query: `
+              {
+                PM1: pMlocal {
+                  id
+                  ts
+                  pm25
+                },
+                PM2: aPI {
+                  id
+                  ts
+                  pm25
+                }
+              }`
+          })
+        });
+    
+        var json = await resp.json();
+        var data = [];
+    
+        // Add line for PM
+        var pm1 = {
+          x: json.data.PM1.map(row => row.ts),
+          y: json.data.PM1.map(row => row.pm25),
+          type: 'line',
+          name: json.data.pm.name,
+        };
+        data.push(pm1);
+    
+        var pm2 = {
+          x: json.data.PM2.map(row => row.ts),
+          y: json.data.PM2.map(row => row.pm25),
+          type: 'line',
+          name: json.data.api.name,
+        };
+        data.push(pm2);
+    
+        var layout = {
+          title: 'PM2.5 by timestamp',
+          xaxis: {
+            title: 'Timestamp'
+          },
+          yaxis: {
+            title: 'PM2.5',
+            range: [0, 100]
+          }
+        };
+        var config = { responsive: true };
+        Plotly.newPlot("chart6", data, layout, config);
+      }
+    
+      createChart();
+    </script>
+</body>
+</html>

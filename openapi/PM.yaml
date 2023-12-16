@@ -1,0 +1,115 @@
+openapi: 3.0.0
+info:
+  title: PM API
+  description:
+    This API provides historical rainfall data over upper Chaopraya river basin between 1987
+    and 2023.  Raw data provided by Thai Meteorological Department (TMD).
+  version: 3.0.0
+servers:
+  - url: http://127.0.0.1:8080/PMtoPoint5
+paths:
+  /API:
+    get:
+      summary: Returns a list of API.
+      operationId: controller.get_API
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/API'
+  /Location:
+    get:
+      summary: Returns a list of Location.
+      operationId: controller.get_Location
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+  /PMlocal:
+    get:
+      summary: Returns a list of PM.
+      operationId: controller.get_LocalPM
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PMlocal'
+  /PMtoLocation:
+    get:
+      summary: Returns a list of PM.
+      operationId: controller.get_PMtoLocation
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PMtoLocation'
+
+components:
+  schemas:
+    API:
+      type: object
+      properties:
+        id:
+          type: integer
+        ts:
+          type: string
+        lat:
+          type: number
+        lon:
+          type: number
+        wind:
+          type: string
+        pm25:
+          type: integer
+        hum:
+          type: string
+    Location:
+      type: object
+      properties:
+        id:
+          type: integer
+        ts:
+          type: string
+        lat:
+          type: number
+        lon:
+          type: number
+    PMlocal:
+      type: object
+      properties:
+        id:
+          type: integer
+        ts:
+          type: string
+        pm25:
+          type: integer
+    PMtoLocation:
+      type: object
+      properties:
+        id:
+          type: integer
+        ts:
+          type: string
+        lat:
+          type: number
+        lon:
+          type: number
+        pm25:
+          type: integer

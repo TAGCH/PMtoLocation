@@ -1,0 +1,174 @@
+/*For menu bar*/
+header {
+    position: fixed;
+    width: 100%;
+    padding: 15px 80px;
+    background-color: #393939;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0 30px rgb(0, 0, 0, 0.5);
+    z-index: 99;
+}
+
+.logo {
+    font-size: 2em;
+    color: rgb(255, 255, 255);
+    user-select: none;
+    font-weight: 700;
+    text-shadow: 2px 2px 8px #00000057;
+}
+
+.navigation {
+    display: flex; /* Added flex display */
+    align-items: center; /* Center items vertically */
+    margin-right: auto;
+}
+
+.navigation a {
+    font-size:  1.0em;
+    color: aliceblue;
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 20px; /* Adjusted margin */
+    position: relative; /* Removed duplicate position property */
+    display: inline-flex;
+}
+
+.navigation .btnLogin-popup {
+    width:  110px;
+    height: 40px;
+    background: transparent;
+    border: 1px solid #fff;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    color: #fff;
+    font-weight: 1000;
+    margin-left: 40px;
+    transition: .5s;
+}
+
+.navigation .btnLogin-popup:hover {
+    background: rgba(255, 255, 255, 0.5);
+    color: blueviolet;
+}
+
+.navigation a::after {
+    content: ' ';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    background: #fff;
+    border-radius: 5px;
+    transform: scaleX(0);
+    transition: transform .5s;
+}
+
+.navigation a:hover::after {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+.navigation-left {
+    display: flex; /* Added flex display */
+    align-items: center; /* Center items vertically */
+    margin-left: auto;
+}
+
+.navigation-left a {
+    font-size:  1.0em;
+    color: aliceblue;
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 20px; /* Adjusted margin */
+    position: relative; /* Removed duplicate position property */
+    display: inline-flex;
+}
+
+.navigation-left .btnLogin-popup {
+    width: 100px;
+    height: 38px;
+    background: transparent;
+    border: 1px solid #fff;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    color: #fff;
+    font-weight: 1000;
+    margin-left: 40px;
+    transition: .5s;
+}
+
+.navigation-left .btnLogin-popup:hover {
+    background: rgba(255, 255, 255, 0.5);
+    color: blueviolet;
+}
+
+.navigation-left a::after {
+    content: ' ';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    background: #fff;
+    border-radius: 5px;
+    transform: scaleX(0);
+    transition: transform .5s;
+}
+
+.navigation-left a:hover::after {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+.item {
+    width: 40px;
+    height: auto;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+.item:hover {
+    transform: scale(1.1);
+}
+/*For menu bar*/
+
+.image-container {
+    height: 400px; /* Set the height of the container, adjust as needed */
+    overflow: hidden; /* Hide the overflow content (cut the image) */
+    z-index: -1;
+}
+
+.object-fit-cover-picture__img {
+    object-fit: cover; /* This will maintain aspect ratio */
+    object-position: center top; /* This will show the top 50% */
+    width: 100%;
+    height: 100%; /* Ensure the image fills the container */
+    z-index: -1;
+}
+
+.logo-container {
+    height: 80px;
+    width: 100%;
+    padding: 40px 80px;
+    background-color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 30px rgb(0, 0, 0, 0.5);
+    color: #ffffff;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 2rem;
+    font-weight: 100;
+    top: 60%;
+}
+
+.Picture {
+    width: 100%;
+}
